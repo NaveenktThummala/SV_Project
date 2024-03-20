@@ -1,6 +1,7 @@
 module IOMFSM #(parameter IOM = 1) (Intel8088Pins.Peripheral in,
-					input CS
-					);
+					input CS,
+					input [19:0]Address,
+					inout [7:0]Data);
 
 
 typedef enum logic [4:0] {
@@ -20,17 +21,16 @@ logic [19:0] addr;
 always_latch
 begin
 if(LoadAddress)
-	addr = in.Address;
+	addr <= Address;
 end
 
-always_comb
+always_ff @(posedge in.CLK)
 begin
-	if(Write )
-		memory[addr] = in.Data;
-	
+	if(Write)
+		memory[addr] <= Data;
 end
 
-assign in.Data = OE ? memory[addr] : 'z;
+assign Data = OE ?  memory[addr] : 'z;
 
 always_ff @(posedge in.CLK) 
 begin
@@ -104,5 +104,6 @@ begin
 	endcase
 end
 initial $readmemh("tracefile1.txt", memory);
+
 
 endmodule
