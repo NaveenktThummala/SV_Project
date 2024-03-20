@@ -11,20 +11,21 @@ tri [19:8]A;
 logic HLDA;
 logic IOM;
 logic WR;
-//logic CS;
 logic RD;
 logic SSO;
 logic INTA;
 logic ALE;			
 logic DTR;
 logic DEN;
-logic [7:0]Data;
+tri [7:0]Data;
+logic [19:0] Address;
 
 
-modport Processor (input CLK, MNMX, TEST, RESET, NMI, INTR, HOLD, READY,
-					output A, HLDA, IOM, WR, RD, SSO, INTA, ALE, DTR, DEN, 
+	modport Processor (input CLK, MNMX, TEST, RESET, NMI, INTR, HOLD, READY,HLDA ,
+					output A,  IOM, WR, RD, SSO, INTA, ALE, DTR, DEN, 
 					inout AD);
 
-modport Peripheral (input CLK, RESET, WR, RD, ALE);
+	modport Peripheral (input CLK, RESET, WR, RD, ALE,Address,
+			   	inout Data);
 
 endinterface
