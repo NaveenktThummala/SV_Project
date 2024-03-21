@@ -17,6 +17,7 @@ logic OE, Write, LoadAddress;
 logic [7:0] memory [0:2**20-1];
 logic [19:0] addr;
 
+//Address Register
 always_latch
 begin
 if(LoadAddress)
@@ -31,6 +32,8 @@ end
 
 assign Data = OE ?  memory[addr] : 'z;
 
+
+//Sequential logic
 always_ff @(posedge in.CLK) 
 begin
 	if (in.RESET) 
@@ -43,6 +46,7 @@ begin
 	end
 end
 
+//Next State Combinational logic
 always_comb
 begin
 	next_state = current_state;
@@ -78,6 +82,7 @@ begin
 	endcase
 end
 
+//Next State Output Combinational logic
 always_comb 
 begin
 	{LoadAddress, OE, Write} = '0;
