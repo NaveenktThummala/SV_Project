@@ -4,7 +4,6 @@ bit CLK = '0;
 bit RESET ='0;
 initial
 	begin
-
 		in.MNMX = '1;
 		in.TEST = '1;
 		in.READY = '1;
@@ -15,15 +14,12 @@ initial
 
 logic [19:0] Address;
 wire [7:0]  Data;
-
 logic CS1, CS2, CS3, CS4;
-
 
 IOMFSM #(1) dut1 (in.Peripheral, CS1, Address, Data);
 IOMFSM #(1) dut2 (in.Peripheral, CS2, Address, Data);
 IOMFSM #(1) dut3 (in.Peripheral, CS3, Address, Data);
 IOMFSM #(1) dut4 (in.Peripheral, CS4, Address, Data);
-
 Intel8088Pins in(.CLK(CLK), .RESET(RESET));
 Intel8088 P(in.Processor);
 
@@ -39,7 +35,6 @@ always_comb
 
 		else if(in.IOM && Address[15:4] == 12'hFF0)
 			CS4 = 1'b1;
-
 	end
 	
 // 8282 Latch to latch bus address
