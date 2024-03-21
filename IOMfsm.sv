@@ -3,7 +3,6 @@ module IOMFSM #(parameter IOM = 1) (Intel8088Pins.Peripheral in,
 					input [19:0]Address,
 					inout [7:0]Data);
 
-
 typedef enum logic [4:0] {
 	IDLE = 5'b00001,
 	FETCH_ADDRESS = 5'b00010,
@@ -104,6 +103,4 @@ begin
 	endcase
 end
 initial $readmemh("tracefile1.txt", memory);
-
-
 endmodule
